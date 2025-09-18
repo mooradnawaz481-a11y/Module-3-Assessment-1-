@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Book</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #ffecd2, #fcb69f);
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+      background: #ff7e5f;
+      color: white;
+      font-size: 2.2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .form {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    .form h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #ff7e5f;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #e85a3f;
+    }
+
+    #recipes {
+      display: grid;
+      gap: 20px;
+    }
+
+    .recipe {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+
+    .recipe:hover {
+      transform: translateY(-4px);
+    }
+
+    .recipe h3 {
+      margin-top: 0;
+      color: #ff7e5f;
+    }
+
+    .recipe p {
+      margin: 6px 0;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <h1>📖 My Recipe Book</h1>
+
+  <div class="container">
+    <div class="form">
+      <h2>Add a Recipe</h2>
+      <input id="title" type="text" placeholder="Recipe Title">
+      <textarea id="ingredients" placeholder="Ingredients"></textarea>
+      <textarea id="instructions" placeholder="Instructions"></textarea>
+      <button onclick="addRecipe()">Add Recipe</button>
+    </div>
+
+    <div id="recipes"></div>
+  </div>
+
+  <script>
+    const recipes = [
+      {
+        title: "Spaghetti Bolognese",
+        ingredients: "Spaghetti, minced beef, tomato sauce, onion, garlic",
+        instructions: "Cook pasta. Sauté onion and garlic. Add beef until brown. Add sauce. Mix with pasta."
+      },
+      {
+        title: "Pancakes",
+        ingredients: "Flour, milk, egg, sugar, butter",
+        instructions: "Mix ingredients. Pour batter into pan. Cook both sides. Serve with syrup."
+      },
+      {
+          title: "Tomato Soup",
+          ingredients: "Tomatoes, onion, garlic, olive oil, vegetable stock, salt, pepper",
+          instructions: "Sauté onion and garlic in oil. Add chopped tomatoes and stock. Simmer until soft, blend until smooth. Season to taste"
+                 }
+               ];
+
+      function displayRecipes() {
+      const container = document.getElementById("recipes");
+      container.innerHTML = "";
+      recipes.forEach(recipe => {
+        const div = document.createElement("div");
+        div.className = "recipe";
+        div.innerHTML = `
+          <h3>${recipe.title}</h3>
+          <p><strong>Ingredients:</strong> ${recipe.ingredients}</p>
+          <p><strong>Instructions:</strong> ${recipe.instructions}</p>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function addRecipe() {
+      const title = document.getElementById("title").value;
+      const ingredients = document.getElementById("ingredients").value;
+      const instructions = document.getElementById("instructions").value;
+
+      if (title.trim() === "") return;
+
+      recipes.push({ title, ingredients, instructions });
+
+      document.getElementById("title").value = "";
+      document.getElementById("ingredients").value = "";
+      document.getElementById("instructions").value = "";
+
+      displayRecipes();
+    }
+
+    displayRecipes();
+  </script>
+</body>
+</html>
